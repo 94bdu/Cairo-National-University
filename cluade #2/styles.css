@@ -1,0 +1,531 @@
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+
+/* ===================== LOGIN SCREEN ===================== */
+#login-screen {
+  background: #f3f5f7;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.banner {
+  position: relative;
+  background: linear-gradient(115deg, #16324f 0%, #1a5f5a 45%, #17a589 100%);
+  padding: 28px 5% 14px;
+  overflow: hidden;
+}
+.banner-bg { position: absolute; inset: 0; overflow: hidden; }
+.ghost-text {
+  position: absolute;
+  font-weight: 800;
+  color: rgba(255,255,255,0.06);
+  white-space: nowrap;
+  user-select: none;
+}
+.ghost-1 { font-size: 120px; left: 2%; top: -10px; }
+.ghost-2 { font-size: 90px; right: 4%; bottom: -30px; }
+.banner-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.banner-content { position: relative; display: flex; justify-content: center; }
+.banner-panel {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 90%;
+}
+.banner-title {
+  color: #fff;
+  font-size: clamp(16px, 2.4vw, 24px);
+  font-weight: 700;
+}
+.banner-logo { height: clamp(40px, 6vw, 60px); }
+
+.banner-subtitle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  margin-top: 18px;
+}
+.banner-subtitle .dash { width: 40px; height: 1px; background: rgba(255,255,255,0.5); }
+
+.login-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+.login-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(20, 40, 60, 0.08);
+  padding: 36px 34px;
+  width: 100%;
+  max-width: 380px;
+}
+.login-card h1 {
+  color: #16324f;
+  font-size: 22px;
+  margin: 0 0 24px;
+  text-align: right;
+}
+.login-card label {
+  display: block;
+  font-size: 13px;
+  color: #16324f;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.login-card input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid #dbe1e6;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 18px;
+  outline: none;
+  transition: border-color .15s;
+  font-family: inherit;
+}
+.login-card input:focus { border-color: #17a589; }
+
+.btn-primary {
+  width: 100%;
+  background: #16324f;
+  color: #fff;
+  border: none;
+  padding: 13px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-primary:hover { background: #0f2338; }
+
+.login-error-msg {
+  color: #d32f2f;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  margin: -6px 0 16px;
+  text-align: center;
+}
+
+.forgot-link {
+  display: block;
+  text-align: center;
+  margin-top: 18px;
+  font-size: 13px;
+  color: #2563eb;
+  text-decoration: none;
+}
+.forgot-link:hover { text-decoration: underline; }
+
+.login-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #8b95a1;
+  border-top: 1px solid #e8ebee;
+  padding: 16px 10px;
+}
+
+.corner-bubble {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #17a589;
+  opacity: 0.5;
+}
+
+/* ===================== DASHBOARD ===================== */
+.desktop {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #14607e 0%, #2c8f8a 45%, #a9dcc0 85%, #d8ecc9 100%);
+  overflow: hidden;
+}
+
+.desktop-logo {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  opacity: 0.95;
+  pointer-events: none;
+}
+.desktop-logo img {
+  width: clamp(160px, 22vw, 320px);
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.15));
+}
+
+.desktop-icons {
+  position: absolute;
+  top: 18px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 5;
+}
+.desk-icon {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+}
+.desk-icon:hover, .desk-icon:focus { background: rgba(255,255,255,0.18); outline: none; }
+.icon-glyph { width: 30px; height: 30px; display: inline-block; margin-bottom: 4px; }
+.icon-glyph svg { width: 100%; height: 100%; }
+.icon-label {
+  font-size: 11px;
+  color: #10202b;
+  text-align: center;
+  line-height: 1.3;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+}
+
+/* taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: linear-gradient(#2b2f36, #14171b);
+  z-index: 20;
+  border-top: 1px solid #000;
+}
+.start-btn {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(#3a3f47, #202327);
+  border: 1px solid #000;
+  color: #fff;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.start-btn:hover { background: linear-gradient(#484d56, #2a2d31); }
+.start-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff6b5e, #b3261e);
+  display: inline-block;
+}
+.taskbar-info {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #cfd6dc;
+  font-size: 12px;
+}
+
+/* start menu */
+.start-menu {
+  position: fixed;
+  bottom: 40px;
+  left: 6px;
+  width: 300px;
+  max-width: 90vw;
+  background: #3f4550;
+  border: 1px solid #000;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  z-index: 30;
+  display: none;
+  overflow: hidden;
+}
+.start-menu.open { display: block; }
+.start-menu-header {
+  background: linear-gradient(#4a90c4, #2f6ba0);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+}
+.start-menu-body { display: flex; min-height: 160px; }
+.start-menu-left {
+  background: #2c313a;
+  width: 40%;
+  padding: 8px 0;
+}
+.start-menu-right {
+  background: #454b56;
+  width: 60%;
+  padding: 8px 0;
+}
+.start-menu-item {
+  color: #e8ecf0;
+  font-size: 13px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.start-menu-item:hover { background: rgba(255,255,255,0.1); }
+.start-menu-item .arrow { margin-inline-start: auto; opacity: 0.6; }
+.start-menu-right hr { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 6px 10px; }
+
+/* popup windows */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 16px;
+}
+.popup-overlay.open { display: flex; }
+
+.win-popup {
+  display: none;
+  background: #f2f2f2;
+  border: 1px solid #6b6f76;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 560px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+.win-popup.open { display: block; }
+
+.win-titlebar {
+  background: linear-gradient(#4a90c4, #2f6ba0);
+  color: #fff;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+}
+.win-titlebar-error { background: linear-gradient(#c0392b, #8e2318); }
+.win-controls { display: flex; gap: 4px; }
+.win-btn {
+  width: 20px; height: 18px;
+  background: rgba(255,255,255,0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.win-btn:hover { background: rgba(255,255,255,0.3); }
+.win-close:hover { background: #d9534f; }
+
+.win-body { background: #fff; padding: 16px; }
+.win-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.welcome-row {
+  background: #f7f8fa;
+  border-inline-start: 4px solid #3a7bd5;
+  justify-content: space-between;
+  align-items: center;
+}
+.notice-row {
+  background: #fdecec;
+  border-inline-start: 4px solid #d9534f;
+}
+.win-row:last-child { margin-bottom: 0; }
+.win-sub { font-size: 13px; color: #444; margin-top: 2px; }
+.win-emoji { font-size: 20px; flex-shrink: 0; }
+.notice-emoji { margin-top: 2px; }
+.win-row p { margin: 4px 0 0; font-size: 13.5px; line-height: 1.6; color: #2c2c2c; }
+
+.win-academic { max-width: 460px; }
+.win-body.scrollable { max-height: 70vh; overflow-y: auto; }
+
+.sem-title {
+  color: #16324f;
+  font-size: 15px;
+  margin: 18px 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #2f6ba0;
+}
+.grades-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6b7580;
+  font-weight: 600;
+  padding: 0 4px 4px;
+}
+.grade-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.subject-input, .grade-input {
+  border: 1px solid #dbe1e6;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+}
+.subject-input { flex: 3; }
+.grade-input { flex: 1; text-align: center; }
+.subject-input:focus, .grade-input:focus { border-color: #17a589; }
+
+.gpa-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f7f8fa;
+  border-inline-start: 4px solid #3a7bd5;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 14px 0 4px;
+}
+.gpa-row label { font-size: 13.5px; font-weight: 600; color: #16324f; }
+.gpa-input {
+  width: 70px;
+  text-align: center;
+  border: 1px solid #dbe1e6;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+}
+.gpa-input:focus { border-color: #17a589; }
+.gpa-year { border-inline-start-color: #17a589; margin-bottom: 4px; }
+
+.fee-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f7f8fa;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+.fee-info { display: flex; flex-direction: column; gap: 3px; }
+.fee-info strong { color: #16324f; font-size: 14px; }
+.fee-amount { color: #444; font-size: 13px; }
+.paid-badge {
+  background: #e3f6ec;
+  color: #1e8e58;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+.fee-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px 4px;
+  border-top: 1px solid #e8ebee;
+  font-size: 13.5px;
+  color: #16324f;
+}
+
+.win-error { max-width: 400px; }
+.error-body { display: flex; align-items: flex-start; gap: 14px; }
+.error-icon { width: 34px; height: 34px; flex-shrink: 0; }
+.error-icon svg { width: 100%; height: 100%; }
+.error-text strong { display: block; margin-bottom: 6px; color: #8e2318; font-size: 14px; }
+.error-text p { margin: 0; font-size: 13.5px; line-height: 1.6; color: #333; }
+.win-footer { background: #eee; padding: 10px 16px; text-align: center; border-top: 1px solid #ddd; }
+.btn-ok {
+  background: #16324f;
+  color: #fff;
+  border: none;
+  padding: 7px 26px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn-ok:hover { background: #0f2338; }
+
+/* ===================== MOBILE ===================== */
+@media (max-width: 720px) {
+  .banner { padding: 20px 5% 12px; }
+  .banner-content { justify-content: center; }
+  .banner-panel { flex-direction: row-reverse; justify-content: center; text-align: center; padding: 12px 16px; }
+  .ghost-1 { font-size: 70px; }
+  .ghost-2 { font-size: 50px; }
+
+  .login-card { padding: 26px 20px; }
+
+  .desktop-logo {
+    position: absolute;
+    top: auto;
+    bottom: 60px;
+    right: 50%;
+    transform: translateX(50%);
+    opacity: 0.5;
+  }
+  .desktop-logo img { width: 140px; }
+
+  .desktop-icons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+  .desk-icon { width: 84px; }
+  .icon-label { font-size: 10.5px; }
+
+  .start-menu {
+    left: 0; right: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .win-popup { max-width: 100%; }
+  .popup-overlay { padding: 0; align-items: flex-end; }
+  .win-popup.open { border-radius: 10px 10px 0 0; max-height: 85vh; overflow-y: auto; }
+
+  .taskbar-info { display: none; }
+}
+
+@media (max-width: 400px) {
+  .desk-icon { width: 74px; }
+}
